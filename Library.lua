@@ -61,7 +61,7 @@ a = {
 	},
 }
 
-b = {
+Library = {
 	[1] = function()
 		local x = {}
 		function x.n(a, b, c, d)
@@ -104,7 +104,7 @@ b = {
 			game:GetService"UserInputService".InputChanged:Connect(function(i) if i == b and a then u(i) end end)
 		end
 		function x.dialog(p, t, d, call, theme)
-			local f, cancel, confirm, tw = b[1]().n, nil, nil, game:GetService "TweenService"
+			local f, cancel, confirm, tw = Library[1]().n, nil, nil, game:GetService "TweenService"
 			assert(t, "Dialog - Missing Title")
 			if p:FindFirstChild("Dialog") then
 				return
@@ -280,14 +280,14 @@ b = {
 
 			local function c()
 				isDestroyed = true
-				b[1]().tw({
+				Library[1]().tw({
 					v = hf,
 					t = 0.2,
 					s = "Linear",
 					d = "Out",
 					g = {BackgroundTransparency = 1}
 				}):Play()
-				local gf = b[1]().tw({
+				local gf = Library[1]().tw({
 					v = hf.CanvasGroup,
 					t = 0.2,
 					s = "Linear",
@@ -301,21 +301,21 @@ b = {
 
 			local function ml(g)
 				g.MouseMoved:Connect(function()
-					--b[1]().tw({
+					--Library[1]().tw({
 					--	v = g,
 					--	t = 0.2,
 					--	s = "Linear",
 					--	d = "Out",
 					--	g = {BackgroundTransparency = 0.3}
 					--}):Play()
-					b[1]().tw({
+					Library[1]().tw({
 						v = g,
 						t = 0.1,
 						s = "Back",
 						d = "Out",
 						g = {Size = UDim2.new(0, 125, 0, 45)}
 					}):Play()
-					b[1]().tw({
+					Library[1]().tw({
 						v = g.TextLabel,
 						t = 0.1,
 						s = "Back",
@@ -324,21 +324,21 @@ b = {
 					}):Play()
 				end)
 				g.MouseLeave:Connect(function()
-					--b[1]().tw({
+					--Library[1]().tw({
 					--	v = g,
 					--	t = 0.2,
 					--	s = "Linear",
 					--	d = "Out",
 					--	g = {BackgroundTransparency = 1}
 					--}):Play()
-					b[1]().tw({
+					Library[1]().tw({
 						v = g,
 						t = 0.1,
 						s = "Back",
 						d = "Out",
 						g = {Size = UDim2.new(0, 120, 0, 40)}
 					}):Play()
-					b[1]().tw({
+					Library[1]().tw({
 						v = g.TextLabel,
 						t = 0.1,
 						s = "Back",
@@ -351,8 +351,8 @@ b = {
 			ml(confirm)
 			ml(cancel)
 
-			b[1]().tw({v = hf, t = 0.2, s = "Linear", d = "Out", g = {BackgroundTransparency = 0.4}}):Play()
-			b[1]().tw({v = hf.CanvasGroup, t = 0.2, s = "Linear", d = "Out", g = {GroupTransparency = 0}}):Play()
+			Library[1]().tw({v = hf, t = 0.2, s = "Linear", d = "Out", g = {BackgroundTransparency = 0.4}}):Play()
+			Library[1]().tw({v = hf.CanvasGroup, t = 0.2, s = "Linear", d = "Out", g = {GroupTransparency = 0}}):Play()
 
 			game:GetService "UserInputService".InputBegan:Connect(function(A)
 				if not isDestroyed and A.UserInputType == Enum.UserInputType.MouseButton1 or A.UserInputType == Enum.UserInputType.Touch then
@@ -365,19 +365,19 @@ b = {
 
 			confirm.TextButton.MouseButton1Click:Connect(function()
 				tw:Create(confirm.TextLabel, TweenInfo.new(0.06, Enum.EasingStyle.Back, Enum.EasingDirection.Out, 0, true, 0), {Position = UDim2.new(0, 0, 0.1, 0)}):Play()
-				b[1]().tw({v = confirm, t = 0.1, s = "Back", d = "Out", g = {Size = UDim2.new(0, 115, 0, 30)}}):Play()
+				Library[1]().tw({v = confirm, t = 0.1, s = "Back", d = "Out", g = {Size = UDim2.new(0, 115, 0, 30)}}):Play()
 				c()
 				call()
 			end)
 
 			cancel.TextButton.MouseButton1Click:Connect(function()
 				tw:Create(cancel.TextLabel, TweenInfo.new(0.06, Enum.EasingStyle.Back, Enum.EasingDirection.Out, 0, true, 0), {Position = UDim2.new(0, 0, 0.1, 0)}):Play()
-				b[1]().tw({v = cancel, t = 0.1, s = "Back", d = "Out", g = {Size = UDim2.new(0, 115, 0, 30)}}):Play()
+				Library[1]().tw({v = cancel, t = 0.1, s = "Back", d = "Out", g = {Size = UDim2.new(0, 115, 0, 30)}}):Play()
 				c()
 			end)
 		end
 		function x.desc(p, t, theme)
-			return b[1]().n("TextLabel", {
+			return Library[1]().n("TextLabel", {
 				Parent = p,
 				TextWrapped = true,
 				BorderSizePixel = 0,
@@ -398,7 +398,7 @@ b = {
 			})
 		end
 		function x.background(parent, text, desc, ghfd, theme)
-			local f = b[1]().n
+			local f = Library[1]().n
 
 			local hg = f("Frame", {
 				Parent = parent,
@@ -445,19 +445,19 @@ b = {
 			})
 
 			if desc and desc ~= "" then
-				b[1]().desc(hg.TextDesc, desc, theme)
+				Library[1]().desc(hg.TextDesc, desc, theme)
 			end
 
 			hg.TextDesc.UIListLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
 	      local h = hg.TextDesc.UIListLayout.AbsoluteContentSize.Y + 15
 	      hg.TextDesc.Size = UDim2.new(1, 0, 0, h)
-	      hg.Size = UDim2.new(1, 0, 0, math.max(h, 45))
+	      hg.Size = UDim2.new(1, 0, 0, math.max(h, 38))
 			end)
 
 			return hg
 		end
 		function x.click(i)
-			return b[1]().n("TextButton", {
+			return Library[1]().n("TextButton", {
 				Name = "Click",
 				Parent = i,
 				Active = true,
@@ -482,7 +482,7 @@ b = {
 				return
 			end
 
-			local ClickButtonCircle = b[1]().n("ImageLabel", {
+			local ClickButtonCircle = Library[1]().n("ImageLabel", {
 				Parent = p,
 				BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 				BackgroundTransparency = 1,
@@ -513,9 +513,9 @@ b = {
 		end
 		function x.init(gf)
 			local binds = {}
-			local root = b[1]().n('Folder', {Parent = workspace.CurrentCamera})
+			local root = Library[1]().n('Folder', {Parent = workspace.CurrentCamera})
 
-			local DepthOfField = b[1]().n('DepthOfFieldEffect', {
+			local DepthOfField = Library[1]().n('DepthOfFieldEffect', {
 				Parent = game:GetService('Lighting'),
 				FarIntensity = 0,
 				FocusDistance = 51.6,
@@ -523,7 +523,7 @@ b = {
 				NearIntensity = 1,
 			})
 
-			local frame = b[1]().n('Frame', {
+			local frame = Library[1]().n('Frame', {
 				Parent = gf,
 				Size = UDim2.new(0.95, 0, 0.95, 0),
 				Position = UDim2.new(0.5, 0, 0.5, 0),
@@ -597,7 +597,7 @@ b = {
 					cf1 = cf1 * CFrame.new(0, perp/2, dif_para/2)
 
 					if not p0 then
-						p0 = b[1]().n('Part', {
+						p0 = Library[1]().n('Part', {
 							FormFactor = 'Custom',
 							TopSurface = 0,
 							BottomSurface = 0,
@@ -607,7 +607,7 @@ b = {
 							Material = "Glass",
 							Size = Vector3.new(sz, sz, sz)
 						})
-						local mesh = b[1]().n('SpecialMesh', {
+						local mesh = Library[1]().n('SpecialMesh', {
 							Parent = p0,
 							MeshType = 2,
 							Name = "WedgeMesh"
@@ -637,7 +637,7 @@ b = {
 
 			local uid = GenUid()
 			local parts = {}
-			local f = b[1]().n('Folder', {Parent = root, Name = frame.Name})
+			local f = Library[1]().n('Folder', {Parent = root, Name = frame.Name})
 
 			local parents = {}
 			do
@@ -703,19 +703,18 @@ b = {
 		return x
 	end,
 	[2] = function()
-		local f = b[1]().n
+		local f = Library[1]().n
 		return f('ScreenGui', {Parent = not game:GetService("RunService"):IsStudio() and game:GetService("CoreGui") or game:GetService("Players").LocalPlayer.PlayerGui, ZIndexBehavior = Enum.ZIndexBehavior.Sibling})
 	end,
 	CreateWindow = function(self, op)
-		local f, g, CloseUI, patab, of, scl, KeyCloseUI, isopen = self[1]().n, {}, nil, nil, false ,nil, op.Keybind or Enum.KeyCode.LeftControl, false
-		assert(op.Title, "Window - Missing Title")
+		local f, g, patab, of, scl, KeyCloseUI, isopen = self[1]().n, {}, nil, false ,nil, op.Keybind or Enum.KeyCode.LeftControl, false
 		assert(op.Icon, "Window - Missing Icon")
 		local fo = f("CanvasGroup", {
-			Parent = b[2](),
+			Parent = Library[2](),
 			BorderSizePixel = 0,
 			BackgroundColor3 = a.Theme[op.Theme or 'Quertzy']['Background'],
 			AnchorPoint = Vector2.new(0.5, 0.5),
-			Size = UDim2.new(0, 500, 0, 315),
+			Size = UDim2.new(0, 500, 0, 305),
 			Position = UDim2.new(0.5, 0, 0.5, 0),
 			BorderColor3 = Color3.fromRGB(0, 0, 0),
 			GroupTransparency = a.Theme[op.Theme or 'Quertzy']['Background Transparency'],
@@ -737,26 +736,12 @@ b = {
 					Size = UDim2.new(0, 80, 0, 35),
 					BorderColor3 = Color3.fromRGB(0, 0, 0),
 					BackgroundTransparency = 1
-				}, {
-					f("TextLabel", {
-						BorderSizePixel = 0,
-						TextXAlignment = Enum.TextXAlignment.Left,
-						BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-						TextSize = 14,
-						FontFace = Font.new("rbxassetid://16658237174", Enum.FontWeight.Regular, Enum.FontStyle.Normal),
-						TextColor3 = a.Theme[op.Theme or 'Quertzy']['Text Color'],
-						BackgroundTransparency = 1,
-						Size = UDim2.new(1, 0, 1, 0),
-						BorderColor3 = Color3.fromRGB(0, 0, 0),
-						Text = string.upper(op.Title)
-					}),
-					f("UIPadding", {PaddingLeft = UDim.new(0, 50)}),
 				}),
 				f("ImageLabel", {
 					BorderSizePixel = 0,
 					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 					ImageTransparency = 0,
-					Image = b[1]().gl(op.Icon),
+					Image = Library[1]().gl(op.Icon),
 					Size = UDim2.new(0, 35, 0, 35),
 					BorderColor3 = Color3.fromRGB(0, 0, 0),
 					BackgroundTransparency = 1
@@ -770,8 +755,8 @@ b = {
 				}, {
 					f("UIPadding", {
 						PaddingTop = UDim.new(0, 5),
-						PaddingRight = UDim.new(0, 50),
-						PaddingLeft = UDim.new(0, 140)
+						PaddingRight = UDim.new(0, 15),
+						PaddingLeft = UDim.new(0, 40)--140
 					}),
 					f("Frame", {
 						BorderSizePixel = 0,
@@ -780,7 +765,7 @@ b = {
 						BorderColor3 = Color3.fromRGB(0, 0, 0),
 					}, {
 						f("UICorner", {CornerRadius = UDim.new(1, 0)}),
-						f("ScrollingFrame", { --"Scrolling Frame Tab List"
+						f("ScrollingFrame", {
 							Active = true,
 							BorderSizePixel = 0,
 							CanvasSize = UDim2.new(2, 0, 0, 0),
@@ -822,52 +807,6 @@ b = {
 					})
 				})
 			}),
-			f("Frame", {
-				BorderSizePixel = 0,
-				BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-				Size = UDim2.new(1, 0, 0, 50),
-				BorderColor3 = Color3.fromRGB(0, 0, 0),
-				BackgroundTransparency = 1,
-			}, {
-				f("ImageLabel", {
-					Active =  false,
-					BorderSizePixel = 0,
-					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-					ImageColor3 = a.Theme[op.Theme or 'Quertzy']['Color Main'],
-					Selectable = false,
-					Image = "rbxassetid://105506802034513",
-					Size = UDim2.new(0, 20, 0, 20),
-					BackgroundTransparency = 1,
-					BorderColor3 = Color3.fromRGB(0, 0, 0),
-					ImageTransparency = 1
-				}, {
-					f("ImageButton", {
-						Active = true,
-						AnchorPoint = Vector2.new(0.5, 0.5),
-						BackgroundColor3 = Color3.fromRGB(255,255,255),
-						BackgroundTransparency = 1,
-						BorderColor3 = Color3.fromRGB(0,0,0),
-						BorderSizePixel = 0,
-						Position = UDim2.new(0.5, 0,0.5, 0),
-						Size = UDim2.new(0.91, 0,0.91, 0),
-						Image = "rbxassetid://15196662130",
-						ImageColor3 = a.Theme[op.Theme or 'Quertzy']['Color Main']
-					}),
-					f("UIGradient", {
-						Rotation = 90,
-						Transparency = NumberSequence.new{NumberSequenceKeypoint.new(0,1), NumberSequenceKeypoint.new(1,0)}
-					})
-				}, function(a)
-					CloseUI = a
-				end),
-				f("UIListLayout", {
-					HorizontalAlignment = Enum.HorizontalAlignment.Right,
-					VerticalAlignment = Enum.VerticalAlignment.Center,
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					FillDirection = Enum.FillDirection.Horizontal
-				}),
-				f("UIPadding", {PaddingRight = UDim.new(0, 16)})
-			}),
 			f("TextButton", {
 				AnchorPoint = Vector2.new(1,1),
 				BackgroundTransparency = 1,
@@ -878,7 +817,7 @@ b = {
 			})
 		})
 
-		local isfoui = b[1]().init(fo)
+		local isfoui = Library[1]().init(fo)
 
 		local isResizing = false
 		local hasAdjustedAnchor = false
@@ -910,46 +849,7 @@ b = {
 			end
 		end)
 
-		CloseUI.MouseMoved:Connect(function()
-			b[1]().tw({
-				v = CloseUI,
-				t = 0.2,
-				s = "Linear",
-				d = "Out",
-				g = {ImageTransparency = 0.5}
-			}):Play()
-		end)
-
-		CloseUI.MouseLeave:Connect(function()
-			b[1]().tw({
-				v = CloseUI,
-				t = 0.2,
-				s = "Linear",
-				d = "Out",
-				g = {ImageTransparency = 1}
-			}):Play()
-		end)
-
-		CloseUI.ImageButton.MouseButton1Click:Connect(function()
-			b[1]().dialog(fo ,
-				'Do you want to <font color="#ff0000"><b>close?</b></font>',
-				'You just press <font color="#3eff00">comfirm</font> and this ui will close immediately. and <font color="#ff3200">cannot be opened again</font> until you execute it again',
-				function()
-					local gf = b[1]().tw({
-						v = fo,
-						t = 0.2,
-						s = "Linear",
-						d = "Out",
-						g = {GroupTransparency = 1}
-					})
-					gf:Play()
-					gf.Completed:Wait()
-					fo.Parent:Destroy()
-				end
-				, op)
-		end)
-
-		b[1]().lak(fo)
+		Library[1]().lak(fo)
 
 		function g:CreateTab(gfjd)
 			assert(gfjd.Title, "Tab - Missing Title")
@@ -1149,7 +1049,7 @@ b = {
 			})
 
 			local function selectt()
-				b[1]().tw({
+				Library[1]().tw({
 					v = Tab,
 					t = 0.3,
 					s = "Linear",
@@ -1157,7 +1057,7 @@ b = {
 					g = {BackgroundTransparency = 0
 					}
 				}):Play()
-				b[1]().tw({
+				Library[1]().tw({
 					v = Tab.TextLabel,
 					t = 0.3,
 					s = "Linear",
@@ -1166,7 +1066,7 @@ b = {
 				}):Play()
 				delay(.3,function()
 					Page.Visible = true
-					b[1]().tw({
+					Library[1]().tw({
 						v = Page.CanvasGroup,
 						t = 0.3,
 						s = "Linear",
@@ -1179,14 +1079,14 @@ b = {
 			Tab.TextButton.MouseButton1Click:Connect(function()
 				for i,v in pairs(patab:GetChildren()) do
 					if v:IsA("Frame") then
-						b[1]().tw({
+						Library[1]().tw({
 							v = v,
 							t = 0.3,
 							s = "Linear",
 							d = "Out",
 							g = {BackgroundTransparency = 1}
 						}):Play()
-						b[1]().tw({
+						Library[1]().tw({
 							v = v.TextLabel,
 							t = 0.3,
 							s = "Linear",
@@ -1197,7 +1097,7 @@ b = {
 				end
 				for i,v in pairs(fo:GetChildren()) do
 					if v:IsA("Frame") and v.Name == "Page" then
-						local gf = b[1]().tw({
+						local gf = Library[1]().tw({
 							v = v.CanvasGroup,
 							t = 0.15,
 							s = "Linear",
@@ -1244,8 +1144,8 @@ b = {
 				local Value = khgkgh.Value or false
 				local Callback = khgkgh.Callback or function() end
 
-				local par = b[1]().background(Scroll, khgkgh.Title, khgkgh.Desc, false, op)
-				local click = b[1]().click(par)
+				local par = Library[1]().background(Scroll, khgkgh.Title, khgkgh.Desc, false, op)
+				local click = Library[1]().click(par)
 				local toggle = f("Frame", {
 					Parent = par,
 					BorderSizePixel = 0,
@@ -1287,14 +1187,14 @@ b = {
 						pcall(function()
 							Callback(Value)
 						end)
-						b[1]().tw({
+						Library[1]().tw({
 							v = toggle.Frame,
 							t = 0.15,
 							s = "Linear",
 							d = "InOut",
 							g = {BackgroundColor3 = a.Theme[op.Theme or 'Quertzy']['Toggle Color']}
 						}):Play()
-						b[1]().tw({
+						Library[1]().tw({
 							v = toggle.Frame.Frame,
 							t = 0.15,
 							s = "Linear",
@@ -1305,14 +1205,14 @@ b = {
 						pcall(function()
 							Callback(Value)
 						end)
-						b[1]().tw({
+						Library[1]().tw({
 							v = toggle.Frame,
 							t = 0.15,
 							s = "Linear",
 							d = "InOut",
 							g = {BackgroundColor3 = a.Theme[op.Theme or 'Quertzy']['Color Main']}
 						}):Play()
-						b[1]().tw({
+						Library[1]().tw({
 							v = toggle.Frame.Frame,
 							t = 0.15,
 							s = "Linear",
@@ -1328,7 +1228,7 @@ b = {
 
 				click.MouseButton1Click:Connect(function()
 					Value = not Value
-					b[1]().jc(click, par)
+					Library[1]().jc(click, par)
 					ToggleC(Value)
 				end)
 
@@ -1343,7 +1243,7 @@ b = {
 					if descLabel then
 						descLabel.Text = newDesc
 					else
-						b[1]().desc(par.TextDesc, newDesc, op)
+						Library[1]().desc(par.TextDesc, newDesc, op)
 					end
 				end
 
@@ -1374,7 +1274,7 @@ b = {
 					end
 				end
 
-				local par = b[1]().background(Scroll, khgkgh.Title, khgkgh.Desc, false, op)
+				local par = Library[1]().background(Scroll, khgkgh.Title, khgkgh.Desc, false, op)
 				local dropdown = f("Frame", {
 					Parent = par,
 					AnchorPoint = Vector2.new(1, 0.5),
@@ -1464,7 +1364,7 @@ b = {
 
 				local isopen = false
 
-				local click = b[1]().click(par)
+				local click = Library[1]().click(par)
 
 				local function opendropdown()
 					local screenGui = fo.Parent.Parent
@@ -1480,14 +1380,14 @@ b = {
 					if targetY + 200 > viewportSize.Y then targetY = viewportSize.Y - 200 end
 					dropdownselect.Position = UDim2.new(0, targetX, 0, targetY)
 					if dropdownselect.ScrollingFrame.UIListLayout.AbsoluteContentSize.Y + 13 < 120 then
-						b[1]().tw({
+						Library[1]().tw({
 							v = dropdownselect,
 							t = 0.15,
 							s = "Exponential",
 							d = "InOut",
 							g = {Size = UDim2.new(0, 150,0, dropdownselect.ScrollingFrame.UIListLayout.AbsoluteContentSize.Y + 13)}
 						}):Play()
-						b[1]().tw({
+						Library[1]().tw({
 							v = dropdownselect.UIStroke,
 							t = 0.15,
 							s = "Exponential",
@@ -1495,14 +1395,14 @@ b = {
 							g = {Transparency = 0}
 						}):Play()
 					else
-						b[1]().tw({
+						Library[1]().tw({
 							v = dropdownselect.UIStroke,
 							t = 0.15,
 							s = "Exponential",
 							d = "InOut",
 							g = {Transparency = 0}
 						}):Play()
-						b[1]().tw({
+						Library[1]().tw({
 							v = dropdownselect,
 							t = 0.15,
 							s = "Exponential",
@@ -1513,14 +1413,14 @@ b = {
 				end
 
 				local function closedropdown()
-					b[1]().tw({
+					Library[1]().tw({
 						v = dropdownselect,
 						t = 0.15,
 						s = "Exponential",
 						d = "InOut",
 						g = {Size = UDim2.new(0, 150,0, 0)}
 					}):Play()
-					b[1]().tw({
+					Library[1]().tw({
 						v = dropdownselect.UIStroke,
 						t = 0.15,
 						s = "Exponential",
@@ -1552,7 +1452,7 @@ b = {
 					if newWidth > 150 then
 						newWidth = 150
 					end
-					local g = b[1]().tw({
+					local g = Library[1]().tw({
 						v = dropdown,
 						t = 0.15,
 						s = "Back",
@@ -1619,20 +1519,20 @@ b = {
 						})
 					})
 
-					local clickitem = b[1]().click(item)
+					local clickitem = Library[1]().click(item)
 					clickitem.MouseButton1Click:Connect(function()
-						b[1]().jc(clickitem, item)
+						Library[1]().jc(clickitem, item)
 						if Multi then
 							if selectedValues[t] then
 								selectedValues[t] = nil
-								b[1]().tw({
+								Library[1]().tw({
 									v = item,
 									t = 0.15,
 									s = "Linear",
 									d = "InOut",
 									g = {BackgroundColor3 = Color3.fromRGB(88, 88, 88), BackgroundTransparency = 0.9}
 								}):Play()
-								b[1]().tw({
+								Library[1]().tw({
 									v = item.TextLabel,
 									t = 0.15,
 									s = "Linear",
@@ -1653,14 +1553,14 @@ b = {
 									Callback(selectedList)
 								end)
 							else
-								b[1]().tw({
+								Library[1]().tw({
 									v = item,
 									t = 0.15,
 									s = "Linear",
 									d = "InOut",
 									g = {BackgroundColor3 = a.Theme[op.Theme or 'Quertzy']['Color Main'], BackgroundTransparency = 0}
 								}):Play()
-								b[1]().tw({
+								Library[1]().tw({
 									v = item.TextLabel,
 									t = 0.15,
 									s = "Linear",
@@ -1671,6 +1571,673 @@ b = {
 								item.TextLabel.Text = t
 								local selectedList = {}
 								for i, v in pairs(selectedValues) do
+									table.insert(selectedList, i)
+								end
+								dropdown.Frame.TextLabel.Text = table.concat(selectedList, ", ")
+								pcall(function()
+									Callback(selectedList)
+								end)
+							end
+						else
+							for i,v in pairs(dropdownselect.ScrollingFrame:GetChildren()) do
+								if v:IsA("Frame") then
+									Library[1]().tw({
+										v = v,
+										t = 0.15,
+										s = "Linear",
+										d = "InOut",
+										g = {BackgroundColor3 = Color3.fromRGB(88, 88, 88), BackgroundTransparency = 0.9}
+									}):Play()
+									Library[1]().tw({
+										v = v.TextLabel,
+										t = 0.15,
+										s = "Linear",
+										d = "InOut",
+										g = {TextColor3 = Color3.fromRGB(255 ,255 ,255)}
+									}):Play()
+								end
+							end
+							Library[1]().tw({
+								v = item,
+								t = 0.15,
+								s = "Linear",
+								d = "InOut",
+								g = {BackgroundColor3 = a.Theme[op.Theme or 'Quertzy']['Color Main'], BackgroundTransparency = 0}
+							}):Play()
+							Library[1]().tw({
+								v = item.TextLabel,
+								t = 0.15,
+								s = "Linear",
+								d = "InOut",
+								g = {TextColor3 = Color3.fromRGB(0, 0, 0)}
+							}):Play()
+							item.TextLabel.Text = t
+							Value = t
+							dropdown.Frame.TextLabel.Text = t
+							pcall(function()
+								Callback(t)
+							end)
+						end
+					end)
+
+					local function isValueInTable(val, tbl)
+						if type(tbl) ~= "table" then
+							return false
+						end
+
+						for _, v in pairs(tbl) do
+							if v == val then
+								return true
+							end
+						end
+						return false
+					end
+
+					delay(0,function()
+						if Multi then
+							if isValueInTable(t, Value) then
+								Library[1]().tw({
+									v = item,
+									t = 0.15,
+									s = "Linear",
+									d = "InOut",
+									g = {BackgroundColor3 = a.Theme[op.Theme or 'Quertzy']['Color Main'], BackgroundTransparency = 0}
+								}):Play()
+								Library[1]().tw({
+									v = item.TextLabel,
+									t = 0.15,
+									s = "Linear",
+									d = "InOut",
+									g = {TextColor3 = Color3.fromRGB(0, 0, 0)}
+								}):Play()
+								item.TextLabel.Text = t
+								selectedValues[t] = true
+								local selectedList = {}
+								for i, v in pairs(selectedValues) do
+									table.insert(selectedList, i)
+								end
+								dropdown.Frame.TextLabel.Text = table.concat(selectedList, ", ")
+								pcall(function()
+									Callback(selectedList)
+								end)
+							end
+						else
+							if t == Value then
+								Library[1]().tw({
+									v = item,
+									t = 0.15,
+									s = "Linear",
+									d = "InOut",
+									g = {BackgroundColor3 = a.Theme[op.Theme or 'Quertzy']['Color Main'], BackgroundTransparency = 0}
+								}):Play()
+								Library[1]().tw({
+									v = item.TextLabel,
+									t = 0.15,
+									s = "Linear",
+									d = "InOut",
+									g = {TextColor3 = Color3.fromRGB(0, 0, 0)}
+								}):Play()
+								item.TextLabel.Text = t
+								Value = t
+								dropdown.Frame.TextLabel.Text = t
+								pcall(function()
+									Callback(t)
+								end)
+							end
+						end
+						dps()
+					end)
+				end
+
+				for i,v in ipairs(List) do
+					itemslist:Add(v)
+				end
+
+				dropdown.Frame.TextLabel:GetPropertyChangedSignal("Text"):Connect(function()
+					dps()
+				end)
+
+				dropdownselect.ScrollingFrame.UIListLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+					dropdownselect.ScrollingFrame.CanvasSize = UDim2.new(0, 0, 0, dropdownselect.ScrollingFrame.UIListLayout.AbsoluteContentSize.Y + 5)
+				end)
+
+				function itemslist:SetTitle(newTitle)
+					par.TextDesc.TextLabel.Text = newTitle
+				end
+
+				function itemslist:SetDesc(newDesc)
+					local descLabel = par.TextDesc:FindFirstChild("Desc")
+					if descLabel then
+						descLabel.Text = newDesc
+					else
+						Library[1]().desc(par.TextDesc, newDesc, op)
+					end
+				end
+
+				function itemslist:SetVisible(newVisible)
+					par.Visible = newVisible
+				end
+
+				return itemslist
+			end
+
+			function Func:CreateLabel(khgkgh)
+				assert(khgkgh.Title, "Label - Missing Title")
+				local par = Library[1]().background(Scroll, khgkgh.Title, khgkgh.Desc, true, op)
+				par.TextDesc.TextLabel.TextTransparency = 0
+par.TextDesc.TextLabel.RichText = true
+
+				local NewSet = {}
+
+				function NewSet:SetTitle(newTitle)
+					par.TextDesc.TextLabel.Text = newTitle
+				end
+
+				function NewSet:SetDesc(newDesc)
+					local descLabel = par.TextDesc:FindFirstChild("Desc")
+					if descLabel then
+						descLabel.Text = newDesc
+					else
+						Library[1]().desc(par.TextDesc, newDesc, op)
+					end
+				end
+
+				function NewSet:SetVisible(newVisible)
+					par.Visible = newVisible
+				end
+
+				return NewSet
+			end
+
+			function Func:CreateButton(khgkgh)
+				assert(khgkgh.Title, "Button - Missing Title")
+				local par, Callback = Library[1]().background(Scroll, khgkgh.Title, khgkgh.Desc, false, op), khgkgh.Callback or function() end
+				par.TextDesc.TextLabel.TextTransparency = 0
+
+				local button = f("Frame", {
+					Parent = par,
+					AnchorPoint = Vector2.new(1, 0.5),
+					BackgroundTransparency = 1,
+					Position = UDim2.new(1, 0, 0.5, 0),
+					Size = UDim2.new(0, 100, 0.8, 0),
+					BorderSizePixel = 0
+				}, {
+					f("UIListLayout", {
+						HorizontalAlignment = Enum.HorizontalAlignment.Right,
+						SortOrder = Enum.SortOrder.LayoutOrder,
+						VerticalAlignment = Enum.VerticalAlignment.Center
+					}),
+					f("UIPadding", {PaddingRight = UDim.new(0,13)}),
+					f("ImageLabel", {
+						BackgroundTransparency = 1,
+						BorderSizePixel = 0,
+						Size = UDim2.new(0, 20,0, 20),
+						Image = "rbxassetid://14922213932"
+					})
+				})
+
+				local click = Library[1]().click(par)
+				click.MouseButton1Click:Connect(function()
+					Library[1]().jc(click, par)
+					pcall(function()
+						Callback()
+					end)
+				end)
+
+				local NewSet = {}
+
+				function NewSet:SetTitle(newTitle)
+					par.TextDesc.TextLabel.Text = newTitle
+				end
+
+				function NewSet:SetDesc(newDesc)
+					local descLabel = par.TextDesc:FindFirstChild("Desc")
+					if descLabel then
+						descLabel.Text = newDesc
+					else
+						Library[1]().desc(par.TextDesc, newDesc, op)
+					end
+				end
+
+				function NewSet:SetVisible(newVisible)
+					par.Visible = newVisible
+				end
+
+				return NewSet
+			end
+
+			function Func:CreateTextbox(khgkgh)
+				assert(khgkgh.Title, "TextBox - Missing Title")
+				local par, Callback, Placeholder, Value, ClearTextOnFocus = Library[1]().background(Scroll, khgkgh.Title, khgkgh.Desc, false, op), khgkgh.Callback or function() end, khgkgh.Placeholder or "Paste Your Text", khgkgh.Value or "", khgkgh.ClearTextOnFocus or false
+				par.TextDesc.TextLabel.TextTransparency = 0
+				par.TextDesc.UIPadding.PaddingRight = UDim.new(0, 210)
+
+				local textbox = f("Frame", {
+					Parent = par,
+					AnchorPoint = Vector2.new(1, 0.5),
+					BackgroundTransparency = 1,
+					BorderSizePixel = 0,
+					Position = UDim2.new(1, 0,0.5, 0),
+					Size = UDim2.new(0, 200,0.8, 0)
+				}, {
+					f("UIPadding", {PaddingRight = UDim.new(0,13)}),
+					f("UIListLayout", {
+						HorizontalAlignment = Enum.HorizontalAlignment.Right,
+						SortOrder = Enum.SortOrder.LayoutOrder,
+						VerticalAlignment = Enum.VerticalAlignment.Center
+					}),
+					f("Frame", {
+						BackgroundColor3 = a.Theme[op.Theme or 'Quertzy']['Textbox Color'],
+						BorderSizePixel = 0,
+						Size = UDim2.new(1, 0,0, 20)
+					}, {
+						f("UICorner", {CornerRadius = UDim.new(0,4)}),
+						f("Frame", {
+							AnchorPoint = Vector2.new(.5, 1),
+							BackgroundColor3 = a.Theme[op.Theme or 'Quertzy']['Color Main'],
+							BorderSizePixel = 0,
+							Position = UDim2.new(.5, 0,1, 0),
+							Size = UDim2.new(0, 0,0, 1),
+							Name = "Line",
+							BackgroundTransparency = 0.9
+						}),
+						f("Frame", {
+							BackgroundTransparency = 1,
+							BorderSizePixel = 0,
+							Size = UDim2.new(1, 0,1, 0),
+							Name = "ValueBox"
+						}, {
+							f("TextBox", {
+								Active = true,
+								BackgroundTransparency = 1,
+								BorderSizePixel = 0,
+								CursorPosition = -1,
+								Size = UDim2.new(1, 0,1, 0),
+								Font = Enum.Font.Gotham,
+								PlaceholderColor3 = Color3.fromRGB(178,178,178),
+								PlaceholderText = Placeholder,
+								Text = Value,
+								TextColor3 = Color3.fromRGB(255,255,255),
+								TextSize = 11,
+								TextXAlignment = Enum.TextXAlignment.Left,
+								TextTruncate = Enum.TextTruncate.AtEnd,
+								ClearTextOnFocus = ClearTextOnFocus
+							}),
+							f("UIPadding", {PaddingLeft = UDim.new(0,5)})
+						})
+					}),
+				})
+
+				textbox.Frame.ValueBox.TextBox.FocusLost:Connect(function()
+					if Value then
+						if #textbox.Frame.ValueBox.TextBox.Text > 0 then
+							pcall(Callback,textbox.Frame.ValueBox.TextBox.Text)
+						end
+					end
+				end)
+
+				textbox.Frame.ValueBox.TextBox.Focused:Connect(function()
+					Library[1]().tw({
+						v = textbox.Frame.Line,
+						t = 0.15,
+						s = "Linear",
+						d = "InOut",
+						g = {BackgroundTransparency = 0, Size = UDim2.new(1, 0, 0, 1)}
+					}):Play()
+				end)
+
+				textbox.Frame.ValueBox.TextBox.FocusLost:Connect(function()
+					Library[1]().tw({
+						v = textbox.Frame.Line,
+						t = 0.15,
+						s = "Linear",
+						d = "InOut",
+						g = {BackgroundTransparency = 0.9, Size = UDim2.new(0, 0, 0, 1)}
+					}):Play()
+				end)
+
+				delay(0,function()
+					if Value then
+						if #textbox.Frame.ValueBox.TextBox.Text > 0 then
+							pcall(Callback,textbox.Frame.ValueBox.TextBox.Text)
+						end
+					end
+				end)
+
+				local NewSet = {}
+
+				function NewSet:SetTitle(newTitle)
+					par.TextDesc.TextLabel.Text = newTitle
+				end
+
+				function NewSet:SetDesc(newDesc)
+					local descLabel = par.TextDesc:FindFirstChild("Desc")
+					if descLabel then
+						descLabel.Text = newDesc
+					else
+						Library[1]().desc(par.TextDesc, newDesc, op)
+					end
+				end
+
+				function NewSet:SetVisible(newVisible)
+					par.Visible = newVisible
+				end
+
+				function NewSet:SetValue(newValue)
+					textbox.Frame.ValueBox.TextBox.Text = newValue
+				end
+
+				return NewSet
+			end
+
+function Func:CreateSlider(khgkgh)
+	assert(khgkgh.Title, "Slider - Missing Title")
+	local par, Callback, Value, Min, Max, DecimalPlaces = 
+		Library[1]().background(Scroll, khgkgh.Title, khgkgh.Desc, true, op), 
+	khgkgh.Callback or function() end, 
+	khgkgh.Value or khgkgh.Max / 2, 
+	khgkgh.Min or 0, 
+	khgkgh.Max or 100,
+	khgkgh.DecimalPlaces or 0
+
+	par.TextDesc.TextLabel.TextTransparency = 0
+	par.TextDesc.UIPadding.PaddingRight = UDim.new(0, 210)
+
+	local slider = f("Frame", {
+		Parent = par,
+		AnchorPoint = Vector2.new(1, 0.5),
+		BackgroundColor3 = Color3.fromRGB(255,255,255),
+		BackgroundTransparency = 1,
+		BorderColor3 = Color3.fromRGB(0,0,0),
+		BorderSizePixel = 0,
+		Position = UDim2.new(1, 0,0.5, 0),
+		Size = UDim2.new(0, 200,0.8, 0),
+	}, {
+		f("UIPadding", {PaddingRight = UDim.new(0,13)}),
+		f("UIListLayout", {
+			Padding = UDim.new(0,5),
+			FillDirection = Enum.FillDirection.Horizontal,
+			HorizontalAlignment = Enum.HorizontalAlignment.Right,
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			VerticalAlignment = Enum.VerticalAlignment.Center
+		}),
+		f("TextBox", {
+			Active = true,
+			BackgroundColor3 = Color3.fromRGB(255,255,255),
+			BackgroundTransparency = 1,
+			BorderColor3 = Color3.fromRGB(0,0,0),
+			BorderSizePixel = 0,
+			LayoutOrder = -1,
+			Size = UDim2.new(0, 30,0, 30),
+			Font = Enum.Font.GothamBold,
+			PlaceholderColor3 = Color3.fromRGB(178,178,178),
+			PlaceholderText = "",
+			Text = "80",
+			TextColor3 = Color3.fromRGB(255,255,255),
+			TextSize = 10,
+		}),
+		f("CanvasGroup", {
+			BackgroundColor3 = a.Theme[op.Theme or 'Quertzy']['Slider Color'],
+			BorderColor3 = Color3.fromRGB(0,0,0),
+			BorderSizePixel = 0,
+			Size = UDim2.new(0, 150,0, 8),
+			Name = "Frame"
+		}, {
+			f("UICorner", {CornerRadius = UDim.new(1,0)}),
+			f("Frame", {
+				BackgroundColor3 = a.Theme[op.Theme or 'Quertzy']['Color Main'],
+				BorderColor3 = Color3.fromRGB(0,0,0),
+				BorderSizePixel = 0,
+				Size = UDim2.new(0.8, 0,1, 0)
+			}, {
+				f("UICorner", {CornerRadius = UDim.new(1,0)}),
+				f("UIPadding", {PaddingRight = UDim.new(0,1)}),
+				f("ImageLabel", {
+					AnchorPoint = Vector2.new(1, 0.5),
+					BackgroundColor3 = Color3.fromRGB(255,255,255),
+					BackgroundTransparency = 1,
+					BorderColor3 = Color3.fromRGB(0,0,0),
+					BorderSizePixel = 0,
+					Position = UDim2.new(1, 0,0.5, 0),
+					Size = UDim2.new(0, 8,0, 8),
+					Image = "rbxassetid://117975105537462",
+				})
+			}),
+		})
+	})
+
+	local click = Library[1]().click(slider.Frame)
+
+	local function roundToDecimal(value, decimals)
+		local factor = 10 ^ decimals
+		return math.floor(value * factor + 0.5) / factor
+	end
+
+	local function updateSlider(value)
+		value = math.clamp(value, Min, Max)
+		value = roundToDecimal(value, DecimalPlaces)
+		Library[1]().tw({
+			v = slider.Frame.Frame,
+			t = 0.5,
+			s = "Exponential",
+			d = "Out",
+			g = {Size = UDim2.new((value - Min) / (Max - Min), 0, 1, 0)}
+		}):Play()
+		slider.TextBox.Text = tonumber(value)
+		Value = value
+		pcall(function()
+			Callback(value)
+		end)
+	end
+
+	delay(0.5,function()
+		updateSlider(Value or 0)
+	end)
+
+	slider.TextBox.FocusLost:Connect(function()
+		local value = tonumber(slider.TextBox.Text) or Min
+		updateSlider(value)
+	end)
+
+	local function move(input)
+		local sliderBar = slider.Frame
+		local relativeX = math.clamp((input.Position.X - sliderBar.AbsolutePosition.X) / sliderBar.AbsoluteSize.X, 0, 1)
+		local value = relativeX * (Max - Min) + Min
+		updateSlider(value)
+	end
+
+	local dragging = false
+
+	click.InputBegan:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+			dragging = true
+			move(input)
+		end
+	end)
+
+	click.InputEnded:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+			dragging = false
+		end
+	end)
+
+	game:GetService("UserInputService").InputChanged:Connect(function(input)
+		if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+			move(input)
+		end
+	end)
+
+	local NewSet = {}
+
+	function NewSet:SetTitle(newTitle)
+		par.TextDesc.TextLabel.Text = newTitle
+	end
+
+	function NewSet:SetDesc(newDesc)
+		local descLabel = par.TextDesc:FindFirstChild("Desc")
+		if descLabel then
+			descLabel.Text = newDesc
+		else
+			Library[1]().desc(par.TextDesc, newDesc, op)
+		end
+	end
+
+	function NewSet:SetVisible(newVisible)
+		par.Visible = newVisible
+	end
+
+	function NewSet:SetDecimalPlaces(newDecimalPlaces)
+		DecimalPlaces = newDecimalPlaces
+		updateSlider(Value)
+	end
+
+	function NewSet:SetValue(newValue)
+		updateSlider(newValue)
+	end
+
+	return NewSet
+end
+
+			function Func:CreateSection(khgkgh)
+				assert(khgkgh.Title, "Section - Missing Title")
+				local section = f("Frame", {
+					Parent = Scroll,
+					BackgroundTransparency = 1,
+					Size = UDim2.new(0, 100,0, 20),
+					BorderSizePixel = 0
+				}, {
+					f("TextLabel", {
+						BackgroundTransparency = 1,
+						BorderSizePixel = 0,
+						Size = UDim2.new(0, 200,1, 0),
+						Font = Enum.Font.Gotham,
+						Text = khgkgh.Title,
+						TextColor3 = a.Theme[op.Theme or 'Quertzy']['Text Color'],
+						TextSize = 14,
+						TextXAlignment = Enum.TextXAlignment.Left
+					}),
+					f("UIPadding", {
+						PaddingLeft = UDim.new(0,13),
+						PaddingRight = UDim.new(0,90)
+					})
+				})
+
+				local NewSet = {}
+
+				function NewSet:SetTitle(newTitle)
+					section.TextLabel.Text = newTitle
+				end
+
+				function NewSet:SetVisible(newVisible)
+					section.Visible = newVisible
+				end
+
+				return NewSet
+			end
+
+			Scroll.UIListLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+				Scroll.CanvasSize = UDim2.new(0, 0, 0, Scroll.UIListLayout.AbsoluteContentSize.Y + 10)
+			end)
+
+			return Func
+		end
+
+		function g:CreateDialog(hfdjgf)
+			assert(hfdjgf.Title, "Dialog - Missing Title")
+			return Library[1]().dialog(fo ,
+				hfdjgf.Title,
+				hfdjgf.Desc,
+				hfdjgf.Callback or function() end
+				, op)
+		end
+
+		function g:SetTransparency(khgkgh)
+			a.Theme[op.Theme or 'Quertzy']['Background Transparency'] = khgkgh
+			Library[1]().tw({
+				v = fo,
+				t = 0.5,
+				s = "Exponential",
+				d = "Out",
+				g = {GroupTransparency = khgkgh}
+			}):Play()
+		end
+		local Quertzy_Icon = Instance.new("ScreenGui")
+      local Background = Instance.new("Frame")
+      local CloseUi = Instance.new("ImageButton")
+      local UICorner = Instance.new("UICorner")
+      Quertzy_Icon.Name = "Quertzy_Icon"
+      Quertzy_Icon.IgnoreGuiInset = true
+      Quertzy_Icon.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+      Quertzy_Icon.Parent = game:GetService("CoreGui")
+      Background.Name = "Background"
+      Background.Parent = Quertzy_Icon
+      Background.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+      Background.BackgroundTransparency = 1
+      Background.BorderSizePixel = 0
+      Background.Position = UDim2.new(0.4749, 0, 0.003, 0)
+      Background.Size = UDim2.new(0, 44, 0, 41)
+      CloseUi.Name = "CloseUi"
+      CloseUi.Parent = Background
+      CloseUi.BackgroundColor3 = a.Theme[op.Theme or 'Quertzy']['Background']
+      CloseUi.BackgroundTransparency = a.Theme[op.Theme or 'Quertzy']['Background Transparency']
+      CloseUi.BorderSizePixel = 0
+      CloseUi.Position = UDim2.new(0, 0, 0, 0)
+      CloseUi.Size = UDim2.new(1, 0, 1, 0)
+      CloseUi.Image = "http://www.roblox.com/asset/?id=91410265894321"
+      UICorner.Parent = CloseUi
+
+		local function closeopenui()
+			isopen = not isopen
+			local g
+			if isopen then
+				if g then
+					g:Cancel()
+				end
+				for i = 1, 2 do
+					isfoui[i]:Destroy()
+				end
+				g = Library[1]().tw({
+					v = fo,
+					t = 0.15,
+					s = "Linear",
+					d = "Out",
+					g = {GroupTransparency = 1}
+				})
+				g:Play()
+				g.Completed:Connect(function()
+					fo.Visible = false
+				end)
+			else
+				fo.Visible = true
+				isfoui = Library[1]().init(fo)
+				Library[1]().tw({
+					v = fo,
+					t = 0.15,
+					s = "Linear",
+					d = "Out",
+					g = {GroupTransparency = a.Theme[op.Theme or 'Quertzy']['Background Transparency']}
+				}):Play()
+			end
+		end
+
+		CloseUi.MouseButton1Click:Connect(function()
+	      closeopenui()
+     end)
+
+		game:GetService("UserInputService").InputBegan:Connect(function(input, gameProcessed)
+			if not gameProcessed and input.KeyCode == KeyCloseUI then
+				closeopenui()
+			end
+		end)
+
+		scl.CanvasGroup.UIListLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+			scl.CanvasSize = UDim2.new(0, scl.CanvasGroup.UIListLayout.AbsoluteContentSize.X + 30, 0, 0)
+		end)
+
+		return g
+	end,
+}
+return Library								for i, v in pairs(selectedValues) do
 									table.insert(selectedList, i)
 								end
 								dropdown.Frame.TextLabel.Text = table.concat(selectedList, ", ")
